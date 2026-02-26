@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const Listing = require("./models/listing.js");
 const path = require("path");
 const methodOverride = require("method-override");
+const ejsMate = require("ejs-mate");
 const app = express();
 const PORT = 8080;
 const MONGO_URL = "mongodb://127.0.0.1:27017/staybnb";
@@ -21,11 +22,13 @@ async function main(){
 // Configurations
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+app.engine("ejs", ejsMate);
 
 // Middlewares
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(methodOverride("_method"));
+app.use(express.static(path.join(__dirname, "public")));
 
 // Root Route
 app.get("/", (req, res) => {
@@ -64,6 +67,7 @@ app.put("/listings/:id", async (req, res) => {
     res.redirect(`/listings/${id}`);
 });
 
+// Destroy Route
 app.delete("/listings/:id", async (req, res) => {
     let id = req.params.id;
     await Listing.findByIdAndDelete(id);
@@ -77,21 +81,6 @@ app.get("/listings/:id", async (req, res) => {
     let listing = await Listing.findById(id);
     res.render("listings/show.ejs", { listing });
 }); 
-
- 
-// Testing Route
-// app.get("/test", async (req, res) => {
-//     let newListing = new Listing({
-//         title: "all Listing 3",
-//         description: "punit sahu",
-//         price: 190, 
-//         location: "Udaipur",
-//         country: "India"
-//     })
-
-//     await newListing.save();
-//     res.send("Data stored");
-// })
 
 app.listen(PORT, () => {
     console.log("Server is running");
