@@ -4,35 +4,52 @@
 
         <button onclick="javascript:history.back()" class="mb-4 btn btn-dark mainBtn"><- Back</button>
 
-        <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" class="row">
+        <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" class="row needs-validation" novalidate >
            <div class="col-8 offset-2 formStyle">
                 <h3 class="mb-4">Edit Your Listing</h3>
 
                 <div class="inputLabel mb-3">
                     <label for="title" class="form-label">Title</label>
-                    <input type="text" class="form-control" id="titile" value="<%= listing.title %>" name="listing[title]" placeholder="Add Title"> 
+                    <input type="text" class="form-control" id="titile" value="<%= listing.title %>" name="listing[title]" placeholder="Add Title" required>
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Title can't be empty</div> 
                 </div>
+
                 <div class="inputLabel mb-3">
                     <label for="description" class="form-label">Description</label>
-                    <textarea name="listing[description]"  class="form-control" id="description" placeholder="Enter Description"><%= listing.description %></textarea> 
+                    <textarea name="listing[description]"  class="form-control" id="description" placeholder="Enter Description" required><%= listing.description %></textarea>
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Please Enter a Description</div> 
                 </div>
+
                 <div class="inputLabel mb-3">
                     <label for="image" class="form-label">Image Link</label>
-                    <input type="text" class="form-control" id="image" value="<%= listing.image %>" name="listing[image]" placeholder="Add Image Link"> 
+                    <input type="text" class="form-control" id="image" value="<%= listing.image %>" name="listing[image]" placeholder="Add Image Link" required> 
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Enter a valid image link</div> 
                 </div>
+
                 <div class="row">
                     <div class="inputLabel mb-3 col-md-4">
                         <label for="price" class="form-label">Price</label>
-                        <input type="number" class="form-control" id="price" value="<%= listing.price %>" name="listing[price]" placeholder="&#8377; 1299"> 
+                        <input type="number" class="form-control" id="price" value="<%= listing.price %>" name="listing[price]" placeholder="&#8377; 1299" required>
+                        <div class="valid-feedback">Looks good!</div>
+                        <div class="invalid-feedback">Set a Price</div> 
                     </div>
+
                     <div class="inputLabel mb-3 col-md-8">
                         <label for="country" class="form-label">Country</label>
-                        <input type="text" class="form-control" id="country" value="<%= listing.country %>" name="listing[country]" placeholder="India"> 
+                        <input type="text" class="form-control" id="country" value="<%= listing.country %>" name="listing[country]" placeholder="India" required> 
+                        <div class="valid-feedback">Looks good!</div>
+                        <div class="invalid-feedback">Enter the Country Name</div>
                     </div>
                 </div>
+
                 <div class="inputLabel mb-3">
                     <label for="location" class="form-label">Location</label>
-                    <input type="text" class="form-control"  id="location" value="<%= listing.location %>" name="listing[location]" placeholder="Udaipur, Rajasthan"> 
+                    <input type="text" class="form-control"  id="location" value="<%= listing.location %>" name="listing[location]" placeholder="Udaipur, Rajasthan" required>
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Enter Property Location</div> 
                 </div>
 
                 <button class="btn mainBtn mt-4">Update</button>
