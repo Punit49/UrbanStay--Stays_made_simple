@@ -2,10 +2,10 @@
 
 <main>
 
-    <button onclick="history.back()" class="mb-4 btn btn-dark mainBtn"><- Back</button>
+    <!-- <button onclick="history.back()" class="mb-4 btn btn-dark mainBtn"><- Back</button> -->
 
-    <div class="row">
-        <div class="card listingDetailsCard col-7 offset-2">
+    <div class="row showListing">
+        <div class="card listingDetailsCard col-7">
             <h3 class="cardTitle mb-4"><%= listing.title %></h3>
             <img src="<%= listing.image %>" class="card-img-top listingDetailsImg" alt="listing_image">
             <div class="card-body detailsCardBody">
@@ -25,5 +25,45 @@
                 </div>
             </div>
         </div>
+
+        <hr class="col-7 mb-5 mt-4">
+
+        <div class="col-7 mb-4 p-4 rounded-3 reviewBox">
+
+            <h4 class="mb-4">Leave a Review</h4>
+            <form method="post" action="/listings/<%= listing._id%>/reviews" class="needs-validation" novalidate>
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <label for="rating" class="form-label">Rating</label>
+                    <input type="range" class="mb-1" id="rating" name="review[rating]" min="1" max="5" >
+                </div>
+                <div class="mb-3">
+                    <label for="comment" class="form-label">Comment</label>
+                    <textarea name="review[comment]" cols="30" rows="6" class="form-control reviewTextArea" id="comment" placeholder="Share your experience with this place..." required></textarea>
+                    <div class="valid-feedback">Comment Looks Good</div>
+                    <div class="invalid-feedback">Please Write some comments</div>
+                </div>
+                <button class="btn btn-success mt-2">Submit</button>
+            </form>
+        </div>
+        
+        <hr class="col-7 mb-4 mt-4">
+
+        
+        
+        <div class="row col-7 row-cols-2 row-cols-sm-1 g-3 mb-5 p-4 allReviews">
+            <h3 class="mb-3">User Reviews </h3>
+
+            <% for (const review of listing.reveiws.reverse()) { %>
+                <div class="col review">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fa-solid fa-star"></i> <%= review.rating %> <%= review.rating > 1 ? "Stars" : "Star"  %></h5>
+                            <p class="card-text"><%= review.comment %></p>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+
     </div>
 </main>
