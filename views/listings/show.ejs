@@ -47,8 +47,6 @@
         </div>
         
         <hr class="col-7 mb-4 mt-4">
-
-        
         
         <div class="row col-7 row-cols-2 row-cols-sm-1 g-3 mb-5 p-4 allReviews">
             <h3 class="mb-3">User Reviews </h3>
@@ -56,9 +54,16 @@
             <% for (const review of listing.reveiws.reverse()) { %>
                 <div class="col review">
                     <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="fa-solid fa-star"></i> <%= review.rating %> <%= review.rating > 1 ? "Stars" : "Star"  %></h5>
-                            <p class="card-text"><%= review.comment %></p>
+                        <div class="card-body d-flex justify-content-between reviewBody">
+                            <div class="cardContent">
+                                <h5 class="card-title"><i class="fa-solid fa-star"></i> <%= review.rating %> <%= review.rating > 1 ? "Stars" : "Star"  %></h5>
+                                <p class="card-text"><%= review.comment %></p>
+                            </div>
+                            <form method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+                                <button class="btn">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
