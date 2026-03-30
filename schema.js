@@ -17,3 +17,7 @@ module.exports.reviewSchema = joi.object({
         comment: joi.string().required().min(10).max(1000)
     }).required()
 });
+
+// module.exports.userSchema = joi.object({
+    
+// });

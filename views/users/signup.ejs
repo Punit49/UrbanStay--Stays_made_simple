@@ -1,0 +1,30 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<main>
+    <button onclick="history.back()" class="mb-4 btn btn-dark mainBtn"><- Back</button>
+    
+    <form action="/signup" class="row needs-validation" method="POST" novalidate> 
+        <div class="col-7 offset-2 formStyle">
+            <h3 class="mb-4">Sign Up on UrbanStay</h3>
+            <div class="inputLabel mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="JohnDoe18" required>
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Username can't be empty</div>
+            </div>
+            <div class="inputLabel mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" class="form-control" name="email" placeholder="test@example.com" required>
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please enter a valid email</div>
+            </div>
+            <div class="inputLabel mb-3"> 
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" class="form-control" name="password" placeholder="********" required>
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please choose a strong password</div>
+            </div>
+            <button class="btn mainBtn mt-4">Register</button>
+        </div>
+    </form>
+</main>

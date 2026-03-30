@@ -7,18 +7,28 @@ const app = express();
 const PORT = 8081;
 const MONGO_URL = "mongodb://127.0.0.1:27017/staybnb";
 const ExpressError = require("./utils/ExpressError.js");
-const session = require("express-session");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user.js");
 const flash = require("connect-flash");
 
+// Session - 
+const session = require("express-session");
 const sessionOptions = {
-    secret: "SECRETKEY", 
-    resave: false,
-    saveUninitialized: false, 
-}
+    secret: "SECRETKEY",
+    resave: false, 
+    saveUnintialized: false, 
+    cookie: {
+        maxAge: 24 * 60 * 60 * 1000 * 7,
+        httpOnly: true,
+        secure: false
+    }
+};
 
 // Router
 const listingRouter = require("./routes/listings.js");
 const reviewRouter = require("./routes/reviews.js");
+const userRouter = require("./routes/users.js");
 
 // Database connection
 main().then(res => {
@@ -43,8 +53,13 @@ app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(session(sessionOptions));
-app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
+app.use(flash());
 app.use((req, res, next) => {
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
@@ -54,16 +69,17 @@ app.use((req, res, next) => {
 // Routers
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
+app.use("/", userRouter);
 
 // Root Route
 app.get("/", (req, res) => {
-    res.send("Root");
+    res.redirect("/listings");
 });
 
 // Handling Page not found -
-// app.use((req, res, next) => {
-//     next(new ExpressError(404, "Page Not Found"));
-// });
+app.use((req, res, next) => {
+    next(new ExpressError(404, "Page Not Found"));
+});
 
 // Error Handling Midlleware
 app.use((err, req, res, next) => { 

@@ -1,0 +1,24 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<main>
+    <button onclick="history.back()" class="mb-4 btn btn-dark mainBtn"><- Back</button>
+    
+    <form action="/login" class="row needs-validation" method="POST" novalidate> 
+        <div class="col-7 offset-2 formStyle">
+            <h3 class="mb-4">Login in to UrbanStay</h3>
+            <div class="inputLabel mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="JohnDoe18" required>
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please enter your username</div>
+            </div>
+            <div class="inputLabel mb-3"> 
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" class="form-control" name="password" placeholder="********" required>
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please enter correct password</div>
+            </div>
+            <button class="btn mainBtn mt-4">Login</button>
+        </div>
+    </form>
+</main>
