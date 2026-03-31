@@ -25,6 +25,7 @@ router.post("/signup", async  (req, res) => {
 router.get("/login", (req, res) => {
     res.render("users/login.ejs");
 });
+
 router.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
 
@@ -48,6 +49,17 @@ router.post("/login", (req, res, next) => {
       res.redirect("/listings");
     });
 
-  })(req, res, next); // 🔥 VERY IMPORTANT
+  })(req, res, next); 
 });
+
+router.get("/logout", (req, res, next) => {
+  req.logout((err) => {
+    if(err){
+      return next(err);
+    }
+    req.flash("success", "Logged Out Successfully");
+    res.redirect("/listings");
+  })
+});
+
 module.exports = router; 
