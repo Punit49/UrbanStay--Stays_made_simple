@@ -11,14 +11,14 @@ router.get("/", wrapAsync(async (req, res) => {
     const allListings = await Listing.find();
     res.render("listings/index.ejs", { allListings });
 })); 
- 
+  
 // Create Route
 router.get("/new", isLoggedIn, (req, res) => {
-    console.log(789);
     res.render("listings/new.ejs");
 });
 
 router.post("/", isLoggedIn, validateListing, wrapAsync(async (req, res) => {
+    req.body.listing.owner = req.user._id;
     await Listing.create(req.body.listing);
     console.log("Data Stored in DB");
     req.flash("success", "New Listing Created");
@@ -55,7 +55,7 @@ router.delete("/:id", isLoggedIn, wrapAsync(async (req, res) => { // Coresspondi
 // Read Route
 router.get("/:id", wrapAsync(async (req, res) => {
     const id = req.params.id;
-    const listing = await Listing.findById(id).populate("reveiws");
+    const listing = await Listing.findById(id).populate("reveiws").populate("owner");
     if(!listing){
         req.flash("error", "Listing Does Not Exists!");
         return res.redirect("/listings");

@@ -9,6 +9,9 @@
         <div class="card listingDetailsCard col-7">
             <h3 class="cardTitle mb-4"><%= listing.title %></h3>
             <img src="<%= listing.image %>" class="card-img-top listingDetailsImg" alt="listing_image">
+            <h6 class="mt-2">
+                <i>Owned By: <%= listing.owner.username %> </i>
+            </h6>
             <div class="card-body detailsCardBody">
                 <p class="card-description"><%= listing.description %></p>
                 <p class="card-price fw-bold"><%= listing.price.toLocaleString("en-IN", {style: "currency", currency: "INR", maximumFractionDigits: 0}) %>/Night</p>
