@@ -5,6 +5,7 @@ const wrapAsync = require("../utils/wrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js");
 const { validateListing } = require("../middlewares/validation.js");
 const isLoggedIn = require("../middlewares/isLoggedIn.js");
+const isListingOwner = require("../middlewares/isListingOwner.js");
 
 // Index Route
 router.get("/", wrapAsync(async (req, res) => {
@@ -26,7 +27,7 @@ router.post("/", isLoggedIn, validateListing, wrapAsync(async (req, res) => {
 })); 
 
 // Update Route 
-router.get("/:id/edit", isLoggedIn, wrapAsync(async (req, res) => {
+router.get("/:id/edit", isLoggedIn, isListingOwner, wrapAsync(async (req, res) => {
     const id = req.params.id;
     const listing = await Listing.findById(id);
     if(!listing){
@@ -36,7 +37,7 @@ router.get("/:id/edit", isLoggedIn, wrapAsync(async (req, res) => {
     res.render("listings/edit.ejs", { listing });
 }));
 
-router.put("/:id", isLoggedIn, validateListing, wrapAsync(async (req, res) => {
+router.put("/:id", isLoggedIn, isListingOwner, validateListing, wrapAsync(async (req, res) => {
     const id = req.params.id;
     const listing = req.body.listing;
     await Listing.findByIdAndUpdate(id, listing, { runValidators: true });
@@ -45,7 +46,7 @@ router.put("/:id", isLoggedIn, validateListing, wrapAsync(async (req, res) => {
 }));
 
 // Destroy Route
-router.delete("/:id", isLoggedIn, wrapAsync(async (req, res) => { // Coressponding middleware in listing.js
+router.delete("/:id", isLoggedIn, isListingOwner, wrapAsync(async (req, res) => { // Coressponding middleware in listing.js
     const id = req.params.id;
     await Listing.findByIdAndDelete(id);
     req.flash("success", "Listing Deleted");
@@ -55,7 +56,7 @@ router.delete("/:id", isLoggedIn, wrapAsync(async (req, res) => { // Coresspondi
 // Read Route
 router.get("/:id", wrapAsync(async (req, res) => {
     const id = req.params.id;
-    const listing = await Listing.findById(id).populate("reveiws").populate("owner");
+    const listing = await Listing.findById(id).populate("reviews").populate("owner");
     if(!listing){
         req.flash("error", "Listing Does Not Exists!");
         return res.redirect("/listings");
