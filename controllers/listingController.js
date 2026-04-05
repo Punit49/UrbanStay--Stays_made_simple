@@ -1,3 +1,4 @@
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const Listing = require("../models/listing.js");
 
 module.exports.getAllListings = async (req, res) => {
@@ -10,7 +11,10 @@ module.exports.getCreateForm = (req, res) => {
 };
 
 module.exports.createListing = async (req, res) => {
+    const url = req.file.path;
+    const filename = req.file.filename;
     req.body.listing.owner = req.user._id;
+    req.body.listing.image = {url, filename};
     await Listing.create(req.body.listing);
     console.log("Data Stored in DB");
     req.flash("success", "New Listing Created");
@@ -30,6 +34,11 @@ module.exports.getEditForm = async (req, res) => {
 module.exports.updateListing = async (req, res) => {
     const id = req.params.id;
     const listing = req.body.listing;
+    if(req.file.filename && req.file.path){
+        const url = req.file.path;
+        const filename = req.file.filename;
+        listing.image = { url, filename };
+    }
     await Listing.findByIdAndUpdate(id, listing, { runValidators: true });
     req.flash("success", "Listing Updated");
     res.redirect(`/listings/${id}`);

@@ -3,7 +3,7 @@
 <main>
     <!-- <button onclick="history.back()" class="mb-4 btn btn-dark mainBtn"><- Back</button> -->
     
-    <form action="/listings" class="row needs-validation" method="POST" novalidate> 
+    <form action="/listings" class="row needs-validation" method="POST" novalidate enctype="multipart/form-data"> 
         <div class="col-7 offset-2 formStyle">
             <h3 class="mb-4">Create a New Listing</h3>
             <div class="inputLabel mb-3">
@@ -19,8 +19,8 @@
                 <div class="invalid-feedback">Please Enter a Description</div>
             </div>
             <div class="inputLabel mb-3">
-                <label for="image" class="form-label">Image URL</label>
-                <input type="text" class="form-control" id="image" name="listing[image]" placeholder="Add Image Link">
+                <label for="image" class="form-label">Upload Listing Image</label>
+                <input type="file" class="form-control" id="image" name="listing[image]" placeholder="Add Image Link">
             </div>
             <div class="row">
                 <div class="inputLabel mb-3 col-md-4">

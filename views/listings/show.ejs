@@ -1,5 +1,8 @@
 <% layout("/layouts/boilerplate.ejs") %>
 
+<% block('styles').append(`
+  <link rel="stylesheet" href="/stylesheets/starability-slot.min.css">
+`) %>
 
 <main>
 
@@ -8,7 +11,7 @@
     <div class="row showListing">
         <div class="card listingDetailsCard col-7">
             <h3 class="cardTitle mb-4"><%= listing.title %></h3>
-            <img src="<%= listing.image %>" class="card-img-top listingDetailsImg" alt="listing_image">
+            <img src="<%= listing.image.url %>" class="card-img-top listingDetailsImg" alt="listing_image">
             <h6 class="mt-2">
                 <i>Owned By: <%= listing.owner.username %> </i>
             </h6>
@@ -19,7 +22,6 @@
                 <div class="listingLocation">
                     <span class="card-location"><%= listing.location %>, </span>
                     <span class="card-country"><%= listing.country %></span>
-                    Hyy<%= curUser %>
                 </div>
 
                 <% if(curUser && curUser._id.equals(listing.owner._id)) { %>
@@ -41,9 +43,20 @@
     
                 <h4 class="mb-4">Leave a Review</h4>
                 <form method="post" action="/listings/<%= listing._id%>/reviews" class="needs-validation" novalidate>
-                    <div class="d-flex align-items-center gap-3 mb-3">
-                        <label for="rating" class="form-label">Rating</label>
-                        <input type="range" class="mb-1" id="rating" name="review[rating]" min="1" max="5" >
+                    <div class="ratingStarWrapper">
+                        <fieldset class="starability-slot">
+                            <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="1 rating." />
+                            <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                            <label for="first-rate1" title="Terrible">1 star</label>
+                            <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                            <label for="first-rate2" title="Not good">2 stars</label>
+                            <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                            <label for="first-rate3" title="Average">3 stars</label>
+                            <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                            <label for="first-rate4" title="Very good">4 stars</label>
+                            <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                            <label for="first-rate5" title="Amazing">5 stars</label>
+                        </fieldset>
                     </div>
                     <div class="mb-3">
                         <label for="comment" class="form-label">Comment</label>
@@ -68,8 +81,8 @@
                         <div class="card h-100">
                             <div class="card-body d-flex justify-content-between reviewBody">
                                 <div class="cardContent">
-                                    <h5 class="card-title"><i class="fa-solid fa-star"></i> <%= review.rating %> <%= review.rating > 1 ? "Stars" : "Star"  %></h5>
-                                    <p class="card-text"><small><i>Author: <%= review.author.username %></i></small></p>
+                                    <p class="starability-result" data-rating=<%=review.rating %> </p>
+                                    <p class="card-text fs-4 fw-bold"><small><i>@<%= review.author.username %></i></small></p>
                                     <p class="card-text"><%= review.comment %></p>
                                 </div>
                                 <% if(curUser && review.author._id.equals(curUser._id)) { %>

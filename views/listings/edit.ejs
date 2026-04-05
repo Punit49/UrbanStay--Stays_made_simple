@@ -4,7 +4,7 @@
 
         <!-- <button onclick="javascript:history.back()" class="mb-4 btn btn-dark mainBtn"><- Back</button> -->
 
-        <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" class="row needs-validation" novalidate >
+        <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" enctype="multipart/form-data" class="row needs-validation" novalidate >
            <div class="col-8 offset-2 formStyle">
                 <h3 class="mb-4">Edit Your Listing</h3>
 
@@ -23,8 +23,8 @@
                 </div>
 
                 <div class="inputLabel mb-3">
-                    <label for="image" class="form-label">Image Link</label>
-                    <input type="text" class="form-control" id="image" value="<%= listing.image %>" name="listing[image]" placeholder="Add Image Link" required> 
+                    <label for="image" class="form-label">Upload New Image</label>
+                    <input type="file" class="form-control" id="image" value="<%= listing.image.url %>" name="listing[image]" placeholder="Add Image Link" required> 
                     <div class="valid-feedback">Looks good!</div>
                     <div class="invalid-feedback">Enter a valid image link</div> 
                 </div>

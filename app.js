@@ -11,6 +11,9 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const flash = require("connect-flash");
+require("dotenv").config();
+console.log(process.env.S1);
+
 
 // Session - 
 const session = require("express-session");
@@ -29,6 +32,8 @@ const sessionOptions = {
 const listingRouter = require("./routes/listings.js");
 const reviewRouter = require("./routes/reviews.js");
 const userRouter = require("./routes/users.js");
+const { CLIENT_RENEG_LIMIT } = require("tls");
+const { log } = require("console");
 
 // Database connection
 main().then(res => {

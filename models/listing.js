@@ -11,10 +11,8 @@ const listingSchema = new mongoose.Schema({
         type: String,
     },
     image: {
-        type: String,
-        default: "https://cdni.iconscout.com/illustration/premium/thumb/house-illustration-svg-download-png-3960659.png",
-        set: (v) => 
-            v === "" ? "https://cdni.iconscout.com/illustration/premium/thumb/house-illustration-svg-download-png-3960659.png" : v 
+        url: String,
+        filename: String
     },
     price: {
         type: Number,

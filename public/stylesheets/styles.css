@@ -277,7 +277,7 @@ footer{
 
 .fInfoLinks a:hover{
     color: var(--text-primary);
-}
+} 
 
 .copyrightSection{
     border-top: 1px solid rgb(201, 201, 201);
