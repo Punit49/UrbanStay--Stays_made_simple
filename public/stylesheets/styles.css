@@ -242,8 +242,6 @@ main{
     margin-bottom: .5rem;
 }
 
-
-
 /* Error.ejs */
 .fa-triangle-exclamation{
     font-size: var(--fs-xl);
