@@ -24,22 +24,28 @@ module.exports.createListing = async (req, res) => {
 module.exports.getEditForm = async (req, res) => {
     const id = req.params.id;
     const listing = await Listing.findById(id);
+    
     if(!listing){
         req.flash("error", "Listing Does Not Exists!");
         return res.redirect("/listings");
     }
-    res.render("listings/edit.ejs", { listing });
+
+    let originalImgUrl = listing.image.url;
+    originalImgUrl = originalImgUrl.replace("/upload", "/upload/h_250,w_250");
+    res.render("listings/edit.ejs", { listing, originalImgUrl });
 }
 
 module.exports.updateListing = async (req, res) => {
-    const id = req.params.id;
-    const listing = req.body.listing;
-    if(req.file.filename && req.file.path){
+    const id = req.params.id;    
+    const listing = await Listing.findByIdAndUpdate(id, {...req.body.listing}, { runValidators: true });
+
+    if(typeof req.file !== "undefined"){
         const url = req.file.path;
-        const filename = req.file.filename;
+        const filename = req.file.originalname;
         listing.image = { url, filename };
+        await listing.save();
     }
-    await Listing.findByIdAndUpdate(id, listing, { runValidators: true });
+
     req.flash("success", "Listing Updated");
     res.redirect(`/listings/${id}`);
 }

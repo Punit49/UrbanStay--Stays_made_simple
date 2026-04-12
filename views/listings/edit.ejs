@@ -10,7 +10,7 @@
 
                 <div class="inputLabel mb-3">
                     <label for="title" class="form-label">Title</label>
-                    <input type="text" class="form-control" id="titile" value="<%= listing.title %>" name="listing[title]" placeholder="Add Title" required>
+                    <input type="text" class="form-control" id="title" value="<%= listing.title %>" name="listing[title]" placeholder="Add Title" required>
                     <div class="valid-feedback">Looks good!</div>
                     <div class="invalid-feedback">Title can't be empty</div> 
                 </div>
@@ -22,11 +22,16 @@
                     <div class="invalid-feedback">Please Enter a Description</div> 
                 </div>
 
+                <div id="currentImgBox">
+                    <div class="curImgInfo">Current Image: <%= listing.image.filename %> </div>
+                    <img src="<%= originalImgUrl %>" alt="Current Listing Image" id="curImg">
+                </div>
+
                 <div class="inputLabel mb-3">
                     <label for="image" class="form-label">Upload New Image</label>
-                    <input type="file" class="form-control" id="image" value="<%= listing.image.url %>" name="listing[image]" placeholder="Add Image Link" required> 
+                    <input type="file" class="form-control" id="imageInput" name="listing[image]" placeholder="Add Image Link"> 
                     <div class="valid-feedback">Looks good!</div>
-                    <div class="invalid-feedback">Enter a valid image link</div> 
+                    <div class="invalid-feedback">Please Upload a valid Image</div> 
                 </div>
 
                 <div class="row">
@@ -55,5 +60,9 @@
                 <button class="btn mainBtn mt-4">Update</button>
            </div>
         </form>
+
+        <% block('scripts').append(`
+            <script defer src="/scripts/editFromImagePreview.js"></script>
+        `) %>
 
     </main>
