@@ -204,6 +204,12 @@ main{
     border-radius: var(--border-radius-4);
 }
 
+.listingInfo{
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
 .listingDetailsBtns{
     display: flex;
     gap: var(--sp-3);

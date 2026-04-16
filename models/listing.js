@@ -33,6 +33,16 @@ const listingSchema = new mongoose.Schema({
     owner: {
         type: Schema.Types.ObjectId,
         ref: "User"
+    }, 
+    cordinates: {
+        lon: {
+            type: Number,
+            default: 73.7125
+        },
+        lat: {
+            type: Number,
+            default: 24.5854
+        }
     }
 });
 

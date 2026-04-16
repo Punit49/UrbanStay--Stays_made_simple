@@ -28,4 +28,4 @@ const initReviews = async () => {
     console.log("Reviews Table Emptied");
 }
 
-initReviews();
+// initReviews();

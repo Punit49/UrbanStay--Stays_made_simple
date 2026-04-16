@@ -1,5 +1,6 @@
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const Listing = require("../models/listing.js");
+const axios = require("axios");
 
 module.exports.getAllListings = async (req, res) => {
     const allListings = await Listing.find();
@@ -15,7 +16,14 @@ module.exports.createListing = async (req, res) => {
     const filename = req.file.filename;
     req.body.listing.owner = req.user._id;
     req.body.listing.image = {url, filename};
-    await Listing.create(req.body.listing);
+    const listing = await Listing.create(req.body.listing);
+    
+    let response = await axios.get(`https://us1.locationiq.com/v1/search?key=${process.env.LOCATION_IQ_API_KEY}&q=${encodeURIComponent(listing.location + " " + listing.country)}&format=json&limit=1`);
+
+    const {lat, lon } = response.data[0];
+    listing.cordinates = {lat, lon}; 
+    await listing.save();
+
     console.log("Data Stored in DB");
     req.flash("success", "New Listing Created");
     res.redirect("/listings");

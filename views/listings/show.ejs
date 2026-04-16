@@ -5,37 +5,48 @@
 `) %>
 
 <main>
-
-    <!-- <button onclick="history.back()" class="mb-4 btn btn-dark mainBtn"><- Back</button> -->
-
     <div class="row showListing">
-        <div class="card listingDetailsCard col-7">
-            <h3 class="cardTitle mb-4"><%= listing.title %></h3>
-            <img src="<%= listing.image.url %>" class="card-img-top listingDetailsImg" alt="listing_image">
-            <h6 class="mt-2">
-                <i>Owned By: <%= listing.owner.username %> </i>
-            </h6>
-            <div class="card-body detailsCardBody">
-                <p class="card-description"><%= listing.description %></p>
-                <p class="card-price fw-bold"><%= listing.price.toLocaleString("en-IN", {style: "currency", currency: "INR", maximumFractionDigits: 0}) %>/Night</p>
-                
-                <div class="listingLocation">
-                    <span class="card-location"><%= listing.location %>, </span>
-                    <span class="card-country"><%= listing.country %></span>
-                </div>
+        <div class="col-7 listingInfo">
+            <div class="card listingDetailsCard">
+                <h3 class="cardTitle mb-4"><%= listing.title %></h3>
+                <img src="<%= listing.image.url %>" class="card-img-top listingDetailsImg" alt="listing_image">
 
-                <% if(curUser && curUser._id.equals(listing.owner._id)) { %>
-                    <div class="listingDetailsBtns mt-4 mb-3">
-                        <a href="/listings/<%= listing._id %>/edit" class="btn btn-primary">Edit Listing</a>
-                        <form method="post" action="/listings/<%= listing._id %>?_method=DELETE">
-                            <button class="btn mainBtn">Delete Listing</button>
-                        </form>
+                <h6 class="mt-2">
+                    <i>Owned By: <%= listing.owner.username %> </i>
+                </h6>
+
+                <div class="card-body detailsCardBody">
+                    <p class="card-description"><%= listing.description %></p>
+                    <p class="card-price fw-bold"><%= listing.price.toLocaleString("en-IN", {style: "currency", currency: "INR", maximumFractionDigits: 0}) %>/Night</p>
+                    
+                    <div class="listingLocation">
+                        <span class="card-location"><%= listing.location %>, </span>
+                        <span class="card-country"><%= listing.country %></span>
                     </div>
-                <% } %>
+    
+                    <% if(curUser && curUser._id.equals(listing.owner._id)) { %>
+                        <div class="listingDetailsBtns mt-4 mb-3">
+                            <a href="/listings/<%= listing._id %>/edit" class="btn btn-primary">Edit Listing</a>
+                            <form method="post" action="/listings/<%= listing._id %>?_method=DELETE">
+                                <button class="btn mainBtn">Delete Listing</button>
+                            </form>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+
+            <hr class="col-7 mb-5 mt-4 w-100">
+            
+            <div class="mapBox w-100 mb-4">
+                <h3 class="mb-4">Where you'll Be</h3>
+                <div id="map">
+
+                </div>
             </div>
         </div>
 
-        
+
+
         <% if(isLogin) { %>
             <hr class="col-7 mb-5 mt-4">
 
@@ -68,7 +79,6 @@
                 </form>
             </div>
         <% } %>    
-
         
         <% if(listing.reviews.length > 0) { %>
             <hr class="col-7 mb-4 mt-4">
@@ -99,6 +109,20 @@
             </div>
         <% } %>    
 
-
     </div>
 </main>
+
+<script type="application/json" id="listing-data">
+  <%- JSON.stringify(listing) %>
+</script>
+
+<script>
+  const listingData = document.getElementById("listing-data").textContent;
+  const listing = JSON.parse(listingData);
+</script>
+
+<script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+crossorigin=""></script>
+
+<script defer src="/scripts/map.js"></script>
