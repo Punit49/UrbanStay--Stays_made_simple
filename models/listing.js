@@ -34,14 +34,16 @@ const listingSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: "User"
     }, 
-    cordinates: {
-        lon: {
-            type: Number,
-            default: 73.7125
-        },
-        lat: {
-            type: Number,
-            default: 24.5854
+    geometry: {
+        type: {
+            type: String,
+            enum: ["Point"], 
+            default: "Point",
+            required: true
+        }, 
+        cordinates: {
+            type: [Number],
+            required: true
         }
     }
 });

@@ -20,8 +20,8 @@ module.exports.createListing = async (req, res) => {
     
     let response = await axios.get(`https://us1.locationiq.com/v1/search?key=${process.env.LOCATION_IQ_API_KEY}&q=${encodeURIComponent(listing.location + " " + listing.country)}&format=json&limit=1`);
 
-    const {lat, lon } = response.data[0];
-    listing.cordinates = {lat, lon}; 
+    const {lat, lon} = response.data[0];
+    listing.geometry.cordinates = [Number(lon), Number(lat)]; 
     await listing.save();
 
     console.log("Data Stored in DB");
@@ -45,14 +45,20 @@ module.exports.getEditForm = async (req, res) => {
 
 module.exports.updateListing = async (req, res) => {
     const id = req.params.id;    
-    const listing = await Listing.findByIdAndUpdate(id, {...req.body.listing}, { runValidators: true });
+    const listing = await Listing.findByIdAndUpdate(id, {...req.body.listing}, { runValidators: true, new:true });
 
     if(typeof req.file !== "undefined"){
         const url = req.file.path;
         const filename = req.file.originalname;
         listing.image = { url, filename };
-        await listing.save();
     }
+    
+    let response = await axios.get(`https://us1.locationiq.com/v1/search?key=${process.env.LOCATION_IQ_API_KEY}&q=${encodeURIComponent(listing.location + " " + listing.country)}&format=json&limit=1`);
+    console.log(response);
+
+    const {lat, lon} = response.data[0];
+    listing.geometry.cordinates = [Number(lon), Number(lat)]; 
+    await listing.save();
 
     req.flash("success", "Listing Updated");
     res.redirect(`/listings/${id}`);
