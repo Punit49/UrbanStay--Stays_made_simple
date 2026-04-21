@@ -1,0 +1,26 @@
+<div>
+    <div class="container-fluid d-flex flex-column align-items-start gap-3 flex-lg-row mb-md-5">
+        <div class="d-flex gap-4 pb-4 pb-lg-0 categoryContainer w-100">
+            <% for(let category of categories) { %>
+                <div class="category d-flex flex-column align-items-center gap-1">
+                    <i class="<%= category.icon %>"></i>
+                    <div class="categoryLabel">
+                        <%= category.label %>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+
+        <div class="taxToggle mb-5 mb-md-0 pb-md-0">
+            <div class="form-switch d-flex align-items-center justify-content-center gap-2">
+                <label class="form-check-label m-0" for="switchCheckDefault">
+                    Display Total After Tax
+                </label>
+                <input class="form-check-input m-0" type="checkbox" id="switchCheckDefault">
+            </div>
+        </div>
+    </div>
+
+    <script src="/javascript/category.js"></script>
+
+</div>

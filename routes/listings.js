@@ -10,7 +10,7 @@ const { storage } = require("../cloudConfig.js");
 const upload = multer({ storage }); // automatically creates uploads folder
 
 router.route("/")
-    .get(wrapAsync(listingController.getAllListings))
+    .get(wrapAsync(listingController.getListings))
     .post(isLoggedIn, validateListing, upload.single("listing[image]"), wrapAsync(listingController.createListing)); 
   
 router.get("/new", isLoggedIn, listingController.getCreateForm);

@@ -84,7 +84,7 @@ main{
     padding: var(--sp-4) var(--sp-12);
 }
 
-.navbar-brand i, .navbar-brand span{
+.navbar-brand i, .navbar-brand h4{
     color: var(--main-color);
     font-size: var(--fs-xl);
 }
@@ -132,6 +132,11 @@ main{
     object-fit: cover;
 }
 
+.categoryOptions{
+    margin:var(--sp-2) 0 var(--sp-6) 0;
+    padding: .5rem 4rem .5rem 1rem;
+}
+
 .listingCardBody{
     height: 6.2rem;
     padding: var(--sp-3);
@@ -141,6 +146,10 @@ main{
     font-size: var(--fs-xs);
     color: var(--text-tertiary);
     margin: 0;
+}
+
+.invisible{
+    display: none;
 }
 
 .card-title{
@@ -309,6 +318,53 @@ footer{
     padding-top: var(--sp-4);
 }
 
+.companyTitle{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+}
+
+.titleSVG {
+  fill: var(--main-color);
+  margin: 0 -3px;
+}
+
+.companyTitle:hover #compassSVG{
+    animation: spinCompass 1s alternate infinite;
+}
+
+.companyTitle:hover #locationSVG{
+    animation: animateLocationIcon .5s alternate infinite;
+}
+
+.animateCompass{
+    animation: spinCompass 1s alternate 1;
+}
+
+.animateLocationIcon{
+    animation: animateLocationIcon .5s alternate 1;
+}
+
+/* Animations */
+@keyframes spinCompass {
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes animateLocationIcon {
+    0%{
+        transform: translateY(-1px);
+    }
+    100%{
+        transform: translateY(2px);
+    }
+}
+
 /* Media Queries */
 @media (max-width: 690px) {
     main{
@@ -319,3 +375,4 @@ footer{
         place-content: center;
     }
 }
+

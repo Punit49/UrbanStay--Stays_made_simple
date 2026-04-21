@@ -1,0 +1,44 @@
+.category{
+    cursor: pointer;
+    min-width: fit-content;
+    color: rgb(125, 125, 125);
+    transition: all .2s linear;
+    min-height: fit-content;
+    padding: 0.7rem;
+    height: 3rem;
+}
+
+.categoryContainer{
+    overflow: scroll;
+    -ms-overflow-style: none; 
+    scrollbar-width: none;
+    padding-bottom: 2rem;
+}
+
+.categoryLabel{
+    font-size: 12px;
+}
+
+.category:hover{
+    color: black;
+    transform: scale(1.01);
+    border-bottom: 1px solid rgb(45, 45, 45);
+}
+
+.taxToggle{
+    min-width: fit-content;
+    border: 1px solid rgb(100, 99, 99);
+    padding: .4rem;
+    height: fit-content;
+    border-radius: 1rem;
+}
+
+.form-switch{
+    margin-bottom: .4rem;
+}
+
+.active{
+    color: black;
+    border-bottom: 2px solid black;
+    transform: scale(1.01);
+}

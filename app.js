@@ -30,8 +30,7 @@ const sessionOptions = {
 const listingRouter = require("./routes/listings.js");
 const reviewRouter = require("./routes/reviews.js");
 const userRouter = require("./routes/users.js");
-const { CLIENT_RENEG_LIMIT } = require("tls");
-const { log } = require("console");
+const apiRouter = require("./routes/api.js");
 
 // Database connection
 main().then(res => {
@@ -75,6 +74,7 @@ app.use((req, res, next) => {
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
+app.use("/api", apiRouter);
 
 // Root Route
 app.get("/", (req, res) => {

@@ -1,11 +1,19 @@
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const Listing = require("../models/listing.js");
 const axios = require("axios");
+const categories = require("../data/categoriesData.js");
 
-module.exports.getAllListings = async (req, res) => {
-    const allListings = await Listing.find();
-    res.render("listings/index.ejs", { allListings });
+module.exports.getListings = async (req, res) => {
+    const filter = req.query.category ? { category: req.query.category } : {};
+    const allListings = await Listing.find(filter);
+    res.render("listings/index.ejs", { allListings, categories });
 };
+
+module.exports.getCategoryJSONListing = async (req, res) => {
+    const filter = req.query.category ? { category: req.query.category } : {};
+    const categoryListings = await Listing.find(filter);
+    res.json(categoryListings);
+}
 
 module.exports.getCreateForm = (req, res) => {
     res.render("listings/new.ejs");
