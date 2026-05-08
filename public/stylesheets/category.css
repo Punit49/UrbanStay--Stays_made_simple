@@ -1,4 +1,4 @@
-.category{
+.category, .allListingsCat{
     cursor: pointer;
     min-width: fit-content;
     color: rgb(125, 125, 125);
@@ -6,6 +6,7 @@
     min-height: fit-content;
     padding: 0.7rem;
     height: 3rem;
+    word-break: keep-all;
 }
 
 .categoryContainer{
@@ -35,6 +36,10 @@
 
 .form-switch{
     margin-bottom: .4rem;
+}
+
+.allListingsCat{
+    color: rgb(125, 125, 125);
 }
 
 .active{

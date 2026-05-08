@@ -1,6 +1,6 @@
 <div>
   <nav class="navbar navbar-expand-md bg-light navbar-light border-bottom sticky-top">
-    <div class="container-fluid navbarBox">
+    <div class="container-fluid navbarBox d-flex">
       <a class="navbar-brand" href="/">
           <!-- <i class="fa-brands fa-avianex"></i> -->
           <h4 class="companyTitle">
@@ -17,24 +17,49 @@
               </div>
           </h4>
       </a>
+
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-link" href="/">Home</a>
-          <a class="nav-link" href="/listings">Listings</a>
-          <a class="nav-link" href="/listings/new">Add New Listing</a>
+
+      <div class="collapse navbar-collapse d-flex gap-5" id="navbarNavAltMarkup">
+        <div class="relative">
+          <form class="d-flex w-100" role="search">
+            <input autocomplete="off" class="form-control me-2" id="searchBarInput" type="search" placeholder="Search" aria-label="Search"/>
+            <button class="btn btn-outline-success searchBtn" type="submit">Search</button>
+          </form>
+
+          <div class="searchBarContainer hide">
+
+          </div>
+
+          <template data-countrySearch>
+            <div class="searchTemplate align-items-center gap-2 mb-2">
+              <div class="citySearchBody"></div>
+              <div class="countrySearchBody"></div>
+            </div>
+          </template>
+          
         </div>
-        <div class="navbar-nav">
-          <% if(!isLogin) { %>
-            <a href="/login" class="btn btn-outline-secondary me-2 ms-2">Login</a>
-            <a href="/signup" class="btn btn-outline-secondary">SignUp</a>
-          <% } else { %>
-              <a href="/logout" class="btn btn-danger">Logout</a>
-          <% } %>
+        <div class="d-flex align-items-center">
+          <div class="navbar-nav">
+            <a class="nav-link" href="/">Home</a>
+            <a class="nav-link" href="/listings">Listings</a>
+            <a class="nav-link" href="/listings/new">Add New Listing</a>
+          </div>
+          <div class="navbar-nav">
+            <% if(!isLogin) { %>
+              <a href="/login" class="btn btn-outline-secondary me-2 ms-2">Login</a>
+              <a href="/signup" class="btn btn-outline-secondary">SignUp</a>
+            <% } else { %>
+                <a href="/logout" class="btn btn-danger">Logout</a>
+              </div>
+              <% } %>
         </div>
       </div>
     </div>
   </nav>
+
+  <script type="module" src="/javascript/searchBar.js"></script>
+
 </div>

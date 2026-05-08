@@ -39,11 +39,13 @@ function handleGSTToggle(){
                 currency: "INR", 
                 maximumFractionDigits: 0
             });
-        card.gst.classList.toggle("invisible");
-        card.info.classList.toggle("invisible");
-        card.price.classList.toggle("invisible");
+        card.gst.classList.toggle("hide");
+        card.info.classList.toggle("hide");
+        card.price.classList.toggle("hide");
     });
 }
 
 const taxToggle = document.querySelector(".form-check-input");
-taxToggle.addEventListener("input", handleGSTToggle);
+if(taxToggle){
+    taxToggle.addEventListener("input", handleGSTToggle);
+}

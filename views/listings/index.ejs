@@ -8,9 +8,9 @@
         <%- include("../includes/categoryBar.ejs") %>
 
         <h3 id="categoryLabel">All listings</h3> 
-        </br>
 
-        <div class="allListings">
+        </br>
+        <div class="allListings min-vh-85">
             <div class="cardBox">
                 <% for (let listing of allListings) { %>
                         <a href="/listings/<%= listing._id %>">
@@ -23,10 +23,10 @@
                                     <div class="listingCardBody">
                                         <h5 class="card-title"> <%= listing.title %> </h5>
                                         <div class="priceDetails">
-                                            <span class="priceWithGst cardDetails invisible">2000</span>
+                                            <span class="priceWithGst cardDetails hide">2000</span>
                                             <span class="listingPrice cardDetails"> <%= listing.price.toLocaleString("en-IN", {style: "currency", currency: "INR", maximumFractionDigits: 0}) %> </span>
                                             <span class="cardDetails">/ night</span>
-                                            <span class="cardDetails taxInfo invisible"> &nbsp; <b>+18% GST</b> </span>
+                                            <span class="cardDetails taxInfo hide"> &nbsp; <b>+18% GST</b> </span>
                                         </div>
                                         <span class="listingLocation cardDetails"> <%= listing.location %>, </span>
                                         <span class="listingCountry cardDetails"> <%= listing.country %> </span>

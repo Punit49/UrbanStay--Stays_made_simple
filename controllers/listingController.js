@@ -3,7 +3,7 @@ const Listing = require("../models/listing.js");
 const axios = require("axios");
 const categories = require("../data/categoriesData.js");
 
-module.exports.getListings = async (req, res) => {
+module.exports.getListings = async (req, res) => { // fetches data for both - based on filter and for all 
     const filter = req.query.category ? { category: req.query.category } : {};
     const allListings = await Listing.find(filter);
     res.render("listings/index.ejs", { allListings, categories });
@@ -13,6 +13,27 @@ module.exports.getCategoryJSONListing = async (req, res) => {
     const filter = req.query.category ? { category: req.query.category } : {};
     const categoryListings = await Listing.find(filter);
     res.json(categoryListings);
+}
+
+module.exports.searchListings = async (req, res) => {
+    const query = req.query.q?.trim();
+
+    if(!query) return res.json([]);
+    
+    const terms = query.split(",").map(item => item.trim()).filter(Boolean);
+    const conditions = terms.flatMap(term => [
+        {location: {$regex: term, $options: "i"}},
+        {country: {$regex: term, $options: "i"}},
+        {title: {$regex: term, $options: "i"}},
+        {category: {$regex: term, $options: "i"}}
+    ]);
+    
+    const searchedListings = await Listing.find({ $or: conditions });
+    res.json(searchedListings); 
+};
+
+module.exports.handleCategoryReload = async (req, res) => {
+    res.redirect("/listings");
 }
 
 module.exports.getCreateForm = (req, res) => {

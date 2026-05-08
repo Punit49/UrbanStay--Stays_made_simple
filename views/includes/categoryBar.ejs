@@ -1,6 +1,11 @@
 <div>
     <div class="container-fluid d-flex flex-column align-items-start gap-3 flex-lg-row mb-md-5">
         <div class="d-flex gap-4 pb-4 pb-lg-0 categoryContainer w-100">
+            <a class="allListingsCat text-decoration-none d-flex flex-column align-items-center gap-1 active" href="/listings">
+                <i class="fa-solid fa-border-all"></i>
+                <div class="categoryLabel">All Listings</div>
+            </a>    
+
             <% for(let category of categories) { %>
                 <div class="category d-flex flex-column align-items-center gap-1">
                     <i class="<%= category.icon %>"></i>
@@ -21,6 +26,6 @@
         </div>
     </div>
 
-    <script src="/javascript/category.js"></script>
+    <script type="module" src="/javascript/category.js"></script>
 
 </div>

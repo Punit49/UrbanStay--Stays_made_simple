@@ -50,8 +50,12 @@
                     <div class="invalid-feedback">Please Set a Price</div>
                 </div>
                 <div class="inputLabel mb-3 col-md-8">
+                    <!-- <input type="text" id="country" class="form-control" name="listing[country]" placeholder="India" required> -->
                     <label for="country" class="form-label">Country</label>
-                    <input type="text" id="country" class="form-control" name="listing[country]" placeholder="India" required>
+                    <select name="listing[country]" class="p-2 rounded" id="country" required>
+                        <option selected value="india">India</option>
+                        <option value="india">USA</option>
+                    </select>
                     <div class="valid-feedback">Looks good!</div>
                     <div class="invalid-feedback">Enter the Country name</div>
                 </div>

@@ -5,25 +5,41 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const app = express();
 const PORT = 8081;
-const MONGO_URL = "mongodb://127.0.0.1:27017/staybnb";
 const ExpressError = require("./utils/ExpressError.js");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const flash = require("connect-flash");
 require("dotenv").config();
+const MONGO_URL = process.env.MONGODB_CONNECTION_STRING;
+const MONGO_SECRET = process.env.MONGO_SECRET;
 
 // Session - 
 const session = require("express-session");
+const { MongoStore } = require("connect-mongo");
+
+const store = MongoStore.create({
+    mongoUrl: MONGO_URL, 
+    crypto: {
+        secret: process.env.MONGO_SECRET 
+    }, 
+    touchAfter: 24 * 3600
+});
+
+store.on("error", (err) => {
+    console.log("ERROR IN SESSION STORE", err);
+})
+
 const sessionOptions = {
+    store: store,
     secret: "SECRETKEY",
     resave: false, 
-    saveUnintialized: false, 
+    saveUninitialized: false, 
     cookie: {
         maxAge: 24 * 60 * 60 * 1000 * 7,
         httpOnly: true,
         secure: false
-    }
+    } 
 };
 
 // Router
